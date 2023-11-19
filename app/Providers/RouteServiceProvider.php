@@ -30,7 +30,7 @@ class RouteServiceProvider extends ServiceProvider
         });
 
         $this->routes(function () {
-            Route::middleware(['api','changelanguage'])
+            Route::middleware(['api','changeLanguage'])
 	            ->prefix (LaravelLocalization::setLocale())
                 ->group(base_path('routes/api.php'));
 

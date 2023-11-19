@@ -1,11 +1,10 @@
 <?php
 	
-	namespace App\Http\Controllers\static_pages;
+	namespace App\Http\Controllers\v1\static_pages;
 	
 	use App\Http\Controllers\Controller;
-	use Illuminate\Http\Request;
-	use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 	use App\Http\Traits\ApiTrait;
+	
 	class AboutApplicationController extends Controller
 	{
 		use ApiTrait;

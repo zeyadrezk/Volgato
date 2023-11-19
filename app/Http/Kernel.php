@@ -70,6 +70,6 @@
 			'localeSessionRedirect' => \Mcamara\LaravelLocalization\Middleware\LocaleSessionRedirect::class,
 			'localeCookieRedirect' => \Mcamara\LaravelLocalization\Middleware\LocaleCookieRedirect::class,
 			'localeViewPath' => \Mcamara\LaravelLocalization\Middleware\LaravelLocalizationViewPath::class,
-			'changelanguage' => \App\Http\Middleware\Changelanguage::class,
+			'changeLanguage' => \App\Http\Middleware\ChangeLanguage::class,
 		];
 	}

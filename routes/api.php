@@ -1,43 +1,51 @@
 <?php
 	
-	use App\Http\Controllers\Api\LoginController;
-	use App\Http\Controllers\Api\UserController;
-	use App\Http\Controllers\static_pages\AboutApplicationController;
-	use App\Http\Controllers\static_pages\TermsCondtionsController;
-	use App\Http\Controllers\static_pages\WhoAreWeController;
-	use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
-
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "api" middleware group. Make something great!
-|
-*/
-
-//Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-//    return $request->user();
-//});
-
-
-Route::get('/about_app',[AboutApplicationController::class,'AboutApplication'])->name('about_app');
-Route::get('/WhoAreWe',[WhoAreWeController::class,'WhoAreWe'])->name('WhoAreWe');
-Route::get('/TermsAndConditions',[TermsCondtionsController::class,'TermsCondtions'])->name('TermsCondtions');
+	use App\Http\Controllers\v1\Api\ServiceController;
+	use App\Http\Controllers\v1\Api\UserController;
+	use App\Http\Controllers\v1\static_pages\AboutApplicationController;
+	use App\Http\Controllers\v1\static_pages\TermsCondtionsController;
+	use App\Http\Controllers\v1\static_pages\WhoAreWeController;
+	use Illuminate\Support\Facades\Request;
+	use Illuminate\Support\Facades\Route;
 	
-	
+	/*
+	|--------------------------------------------------------------------------
+	| API Routes
+	|--------------------------------------------------------------------------
+	|
+	| Here is where you can register API routes for your application. These
+	| routes are loaded by the RouteServiceProvider and all of them will
+	| be assigned to the "api" middleware group. Make something great!
+	|
+	*/
+
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+    return 'zeyad';
+});
+
+
+	Route::get('/about_app',[AboutApplicationController::class,'AboutApplication'])->name('about_app');
+	Route::get('/WhoAreWe',[WhoAreWeController::class,'WhoAreWe'])->name('WhoAreWe');
+	Route::get('/TermsAndConditions',[TermsCondtionsController::class,'TermsCondtions'])->name('TermsCondtions');
 	
 	
 	Route::group([
 		'controller' => UserController::class,
 		'middleware'=>'guest',
 		'prefix' => 'user',
-		'as' => 'user.',
+		
 	], function () {
 	Route::post('/login','login')->name('login');
+	Route::get('/login','login')->name('login');
 	Route::post('/register','register')->name('register');
 	
+	});
+	
+	Route::group([
+		'controller' => ServiceController::class,
+		'middleware'=>'auth:sanctum',
+		'prefix' => 'Service',
+		'as' => 'Service.',
+	], function () {
+	Route::post('/','index')->name('index');
 	});

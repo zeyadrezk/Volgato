@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\static_pages;
+namespace App\Http\Controllers\v1\static_pages;
 
 use App\Http\Controllers\Controller;
 use App\Http\Traits\ApiTrait;
