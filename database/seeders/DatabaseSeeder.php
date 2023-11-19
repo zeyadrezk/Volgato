@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Category;
+use App\Models\country;
 use App\Models\ServiceTrans;
 use Illuminate\Database\Seeder;
 
@@ -19,11 +21,20 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
+	    category::create([
+		    'name' => fake()->name,
+	    ]);
+	    category::create([
+		    'name' => fake()->name,
+	    ]);
 	    
 	    $this->call([
+		  
 			CountrySeeder::class,
 		    ServiceSeeder::class,
 		    ServiceTransSeeder::class,
+		    ProductSeeder::class,
+		    ProductTransSeeder::class,
 	    ]);
     }
 }

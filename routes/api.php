@@ -1,5 +1,6 @@
 <?php
 	
+	use App\Http\Controllers\v1\Api\ProductController;
 	use App\Http\Controllers\v1\Api\ServiceController;
 	use App\Http\Controllers\v1\Api\UserController;
 	use App\Http\Controllers\v1\static_pages\AboutApplicationController;
@@ -46,6 +47,16 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 		'middleware'=>'auth:sanctum',
 		'prefix' => 'Service',
 		'as' => 'Service.',
+	], function () {
+	Route::post('/','index')->name('index');
+	});
+	
+	
+	Route::group([
+		'controller' => ProductController::class,
+		'middleware'=>'auth:sanctum',
+		'prefix' => 'Product',
+		'as' => 'Product.',
 	], function () {
 	Route::post('/','index')->name('index');
 	});

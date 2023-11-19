@@ -11,13 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('service_trans', function (Blueprint $table) {
-	        $table->id();
-	        $table->foreignid('service_id')->constrained('services')->ondelete('cascade');
-	        $table->string('name')->required();
-	        $table->text('description');
-	        $table->text('short_description');
-	        $table->string('lang');
+        Schema::create('products', function (Blueprint $table) {
+            $table->id();
+			$table->decimal('price',10,2)->required();
+	        $table->foreignid('category_id')->constrained('categories')->ondelete('cascade');
+	        $table->foreignid('country_id')->constrained('countries')->ondelete('cascade');
 	        $table->timestamps();
         });
     }
@@ -27,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('service_trans');
+        Schema::dropIfExists('products');
     }
 };
