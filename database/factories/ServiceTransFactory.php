@@ -2,11 +2,10 @@
 
 namespace Database\Factories;
 
-use App\Models\ServiceTrans;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Model>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\ServiceTrans>
  */
 class ServiceTransFactory extends Factory
 {
@@ -18,12 +17,11 @@ class ServiceTransFactory extends Factory
     public function definition(): array
     {
         return [
-		        'service_id'=> 1,
-		        'name'=>fake()->name,
-		        'description'=>fake()->text,
-		        'short_description'=>fake()->text,
-		        'lang'=>'en',
-	        
+	        'service_id'=> 1,
+	        'name'=>fake()->name,
+	        'description'=>fake()->text,
+	        'short_description'=>fake()->text,
+	        'lang'=>'en',
         ];
     }
 }

@@ -14,6 +14,5 @@ class ServiceTransSeeder extends Seeder
     public function run(): void
     {
 	    ServiceTrans::factory()->count(10)->create();
-	    
     }
 }
