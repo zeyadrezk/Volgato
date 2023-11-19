@@ -19,7 +19,7 @@
 		
 		public function service()
 		{
-			return $this->belongsTo(service::class);
+			return $this->belongsTo(Service::class);
 		}
 		
 	}

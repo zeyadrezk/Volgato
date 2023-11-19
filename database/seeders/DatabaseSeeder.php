@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use App\Models\services_translation;
 use App\Models\ServiceTrans;
 use Illuminate\Database\Seeder;
 

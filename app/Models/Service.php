@@ -6,9 +6,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Lang;
 
-class service extends Model
+class Service extends Model
 {
-    use HasFactory;
+	use HasFactory;
 	protected $fillable =[
 		'price',
 		'country_id',
@@ -23,5 +23,4 @@ class service extends Model
 		
 		return $this->hasMany(ServiceTrans::class)->where('lang','=',$lang);
 	}
-	
 }

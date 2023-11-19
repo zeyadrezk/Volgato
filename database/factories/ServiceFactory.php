@@ -5,7 +5,7 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\service>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Service>
  */
 class ServiceFactory extends Factory
 {
@@ -19,7 +19,6 @@ class ServiceFactory extends Factory
         return [
 	        'price'=>fake()->randomNumber(3),
 	        'country_id'=>fake()->biasedNumberBetween(1,3),
-		
         ];
     }
 }

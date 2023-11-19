@@ -12,10 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('services', function (Blueprint $table) {
-            $table->id();
-			$table->decimal('price');
-			$table->foreignId('country_id')->constrained('countries')->onDelete('cascade');
-            $table->timestamps();
+	        $table->id();
+	        $table->decimal('price');
+	        $table->foreignId('country_id')->constrained('countries')->onDelete('cascade');
+	        $table->timestamps();
         });
     }
 

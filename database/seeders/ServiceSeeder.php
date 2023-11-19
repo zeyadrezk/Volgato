@@ -2,9 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\country;
-use App\Models\service;
-use Database\Factories\ServiceFactory;
+use App\Models\Service;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -15,6 +13,7 @@ class ServiceSeeder extends Seeder
      */
     public function run(): void
     {
-		service::factory()->count(10)->create();
+	    Service::factory()->count(10)->create();
+	    
     }
 }
