@@ -30,7 +30,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 	Route::get('/about_app',[AboutApplicationController::class,'AboutApplication'])->name('about_app');
 	Route::get('/WhoAreWe',[WhoAreWeController::class,'WhoAreWe'])->name('WhoAreWe');
 	Route::get('/TermsAndConditions',[TermsCondtionsController::class,'TermsCondtions'])->name('TermsCondtions');
-	Route::get('/country/{lang}',[CountryController::class,'index']);
+	Route::get('/country/{lang}',[CountryController::class,'index'])->name('countries');
 	
 	
 	Route::group([

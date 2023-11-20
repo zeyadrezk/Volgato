@@ -28,6 +28,9 @@ class ServiceController extends Controller
 			    'price' => $item['price'],
 			    'oldprice' => $item['oldprice'],
 			    'image' => $item['image'],
+			    'short_description' => $item['short_description'][$lang],
+				'description' => $item['description'][$lang],
+				'details' => $item['details'][$lang],
 		    ];
 	    }, $services);
 		return $this->ApiResponse(200,'Services',null, $services);

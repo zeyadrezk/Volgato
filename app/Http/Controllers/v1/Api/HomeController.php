@@ -17,12 +17,40 @@ class HomeController extends Controller
 		
 	public function index(Request $request)
 	{
+		$lang = $request->lang;
+		$country= Country::select('id')->where('name', 'like', '%'.$request->country.'%' )->first();
+		$products = product::where('country_id',$country->id)->get();
+		$products = json_decode($products, true);
+		$products = array_map(function ($item) use ($lang) {
+			return [
+				'id' => $item['id'],
+				'name' => $item['name'][$lang],
+				'price' => $item['price'],
+				'oldprice' => $item['oldprice'],
+				'image' => $item['image'],
+				'short_description' => $item['short_description'][$lang],
+				'description' => $item['description'][$lang],
+				'details' => $item['details'][$lang],
+				'quantity' => $item['quantity'][$lang],
+			];
+		}, $products);
 		
-		$country = $request->country ;
-		$country_id= Country::where('name',$country)->first();
-		$products = product::where('country_id',$country_id->id)->get();
+		$services = Service::where('country_id',$country->id)->get();
+		$services = json_decode($services, true);
+		$services = array_map(function ($item) use ($lang) {
+			return [
+				'id' => $item['id'],
+				'name' => $item['name'][$lang],
+				'price' => $item['price'],
+				'oldprice' => $item['oldprice'],
+				'image' => $item['image'],
+				'short_description' => $item['short_description'][$lang],
+				'description' => $item['description'][$lang],
+				'details' => $item['details'][$lang],
+			];
+		}, $services);
+		
 		$category  = Category::all();
-		$services = Service::where('country_id',$country_id->id)->get();
 		$all = [ 'services' => $services,'category '=>$category,'products' => $products];
 		return $this->ApiResponse(200,'Services products',null, $all);
 	

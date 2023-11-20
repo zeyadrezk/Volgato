@@ -25,8 +25,12 @@ class ProductController extends Controller
 				'price' => $item['price'],
 				'oldprice' => $item['oldprice'],
 				'image' => $item['image'],
+				'short_description' => $item['short_description'][$lang],
+				'description' => $item['description'][$lang],
+				'details' => $item['details'][$lang],
+				'quantity' => $item['quantity'][$lang],
 			];
 		}, $products);
-		return $this->ApiResponse(200,'Services',null, $products);
+		return $this->ApiResponse(200,'success',null, array('products'=> $products));
 	}
 }
