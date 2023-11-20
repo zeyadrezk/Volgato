@@ -31,7 +31,7 @@ class HomeController extends Controller
 				'short_description' => $item['short_description'][$lang],
 				'description' => $item['description'][$lang],
 				'details' => $item['details'][$lang],
-				'quantity' => $item['quantity'][$lang],
+				'quantity' => $item['quantity'],
 			];
 		}, $products);
 		
@@ -51,7 +51,7 @@ class HomeController extends Controller
 		}, $services);
 		
 		$category  = Category::all();
-		$all = [ 'services' => $services,'category '=>$category,'products' => $products];
+		$all = [ 'panners'=>'','services' => $services,'category '=>$category,'products' => $products];
 		return $this->ApiResponse(200,'Services products',null, $all);
 	
 	}
