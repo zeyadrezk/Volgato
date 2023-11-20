@@ -18,8 +18,15 @@ class ProductFactory extends Factory
     {
         return [
 	        'price'=>fake()->randomNumber(3),
-	        'category_id'=>fake()->biasedNumberBetween(1,2),
+	        'oldprice'=>fake()->randomNumber(3),
+	        'name'=>['en'=>fake()->name,'ar'=>fake()->name],
+	        'image'=>fake()->image,
+	        'description'=>['en'=>fake()->text,'ar'=>fake()->text],
+	        'details'=>['en'=>fake()->text,'ar'=>fake()->text],
+	        'short_description'=>['en'=>fake()->text,'ar'=>fake()->text],
+	        'quantity'=>10,
 	        'country_id'=>fake()->biasedNumberBetween(1,3),
+	        'category_id'=>fake()->biasedNumberBetween(1,2),
         
         ];
     }

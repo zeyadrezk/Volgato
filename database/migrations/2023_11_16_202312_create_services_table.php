@@ -13,7 +13,13 @@ return new class extends Migration
     {
         Schema::create('services', function (Blueprint $table) {
 	        $table->id();
+	        $table->text('name')->required();
 	        $table->decimal('price');
+	        $table->decimal('oldprice');
+	        $table->string('image')->nullable();
+	        $table->text('details');
+	        $table->text('description');
+	        $table->text('short_description');
 	        $table->foreignId('country_id')->constrained('countries')->onDelete('cascade');
 	        $table->timestamps();
         });

@@ -2,11 +2,15 @@
 
 namespace App\Exceptions;
 
+use App\Http\Traits\ApiTrait;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+
 
 class Handler extends ExceptionHandler
 {
+	use ApiTrait;
     /**
      * The list of the inputs that are never flashed to the session on validation exceptions.
      *
@@ -27,4 +31,13 @@ class Handler extends ExceptionHandler
             //
         });
     }
+	
+	public function render($request, Throwable $exception)
+	{
+		if ($exception instanceof NotFoundHttpException) {
+			return $this->ApiResponse(404, 'failed','page not found');
+		}
+		
+		return parent::render($request, $exception);
+	}
 }

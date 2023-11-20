@@ -20,9 +20,9 @@ class HomeController extends Controller
 		
 		$country = $request->country ;
 		$country_id= Country::where('name',$country)->first();
-		$products = product::with('productTrans')->where('country_id',$country_id->id)->get();
+		$products = product::where('country_id',$country_id->id)->get();
 		$category  = Category::all();
-		$services = Service::with('serviceTrans')->where('country_id',$country_id->id)->get();
+		$services = Service::where('country_id',$country_id->id)->get();
 		$all = [ 'services' => $services,'category '=>$category,'products' => $products];
 		return $this->ApiResponse(200,'Services products',null, $all);
 	

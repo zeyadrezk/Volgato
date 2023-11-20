@@ -32,9 +32,7 @@ class DatabaseSeeder extends Seeder
 		  
 			CountrySeeder::class,
 		    ServiceSeeder::class,
-		    ServiceTransSeeder::class,
 		    ProductSeeder::class,
-		    ProductTransSeeder::class,
 	    ]);
     }
 }

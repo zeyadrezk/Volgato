@@ -1,5 +1,6 @@
 <?php
 	
+	use App\Http\Controllers\v1\Api\CountryController;
 	use App\Http\Controllers\v1\Api\HomeController;
 	use App\Http\Controllers\v1\Api\ProductController;
 	use App\Http\Controllers\v1\Api\ServiceController;
@@ -29,6 +30,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 	Route::get('/about_app',[AboutApplicationController::class,'AboutApplication'])->name('about_app');
 	Route::get('/WhoAreWe',[WhoAreWeController::class,'WhoAreWe'])->name('WhoAreWe');
 	Route::get('/TermsAndConditions',[TermsCondtionsController::class,'TermsCondtions'])->name('TermsCondtions');
+	Route::get('/country/{lang}',[CountryController::class,'index']);
 	
 	
 	Route::group([
@@ -45,7 +47,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 	
 	Route::group([
 		'controller' => ServiceController::class,
-		'middleware'=>'auth:sanctum',
 		'prefix' => 'Service',
 		'as' => 'Service.',
 	], function () {
@@ -55,7 +56,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 	
 	Route::group([
 		'controller' => ProductController::class,
-		'middleware'=>'auth:sanctum',
 		'prefix' => 'Product',
 		'as' => 'Product.',
 	], function () {
@@ -64,7 +64,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 	
 	Route::group([
 		'controller' => HomeController::class,
-		'middleware'=>'auth:sanctum',
 		'prefix' => 'home',
 		'as' => 'home.',
 	], function () {

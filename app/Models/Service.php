@@ -10,17 +10,30 @@ class Service extends Model
 {
 	use HasFactory;
 	protected $fillable =[
+		'name',
 		'price',
+		'oldprice',
+		'description',
+		'short_description',
 		'country_id',
+		'image',
+		'details',
+	];
+	protected $casts =[
+		'name'=>'array',
+		'description'=>'array',
+		'short_description'=>'array',
+		'details'=>'array',
+	
 	];
 	
+	protected $hidden = [
+		'updated_at',
+		'created_at',
+	];
 	
 	public function country(){
 		return $this->belongsTo(Country::class);
 	}
-	public function serviceTrans(){
-		$lang= Lang::locale();
-		
-		return $this->hasMany(ServiceTrans::class)->where('lang','=',$lang);
-	}
+	
 }

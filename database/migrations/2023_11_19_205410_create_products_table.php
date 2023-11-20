@@ -14,6 +14,13 @@ return new class extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id();
 			$table->decimal('price',10,2)->required();
+			$table->decimal('oldprice',10,2)->required();
+	        $table->string('name')->required();
+	        $table->string('image')->nullable();
+	        $table->text('short_description');
+	        $table->text('description');
+	        $table->text('details');
+	        $table->integer('quantity');
 	        $table->foreignid('category_id')->constrained('categories')->ondelete('cascade');
 	        $table->foreignid('country_id')->constrained('countries')->ondelete('cascade');
 	        $table->timestamps();

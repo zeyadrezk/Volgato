@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\country;
+use App\Models\Country;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -13,13 +13,8 @@ class CountrySeeder extends Seeder
      */
     public function run(): void
     {
-	    country::create([
-		    'name' => fake()->country,
-	    ]);  country::create([
-		    'name' => fake()->country,
-	    ]);  country::create([
-		    'name' => fake()->country,
-	    ]);
-		
+	    Country::factory()->count(5)->create();
+	    
+	    
     }
 }

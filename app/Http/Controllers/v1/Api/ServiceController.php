@@ -17,9 +17,19 @@ class ServiceController extends Controller
      */
     public function index(Request $request)
     {
-		$country = $request->country ;
-		$country_id= Country::where('name',$country)->first();
-		$services = Service::with('serviceTrans')->where('country_id',$country_id->id)->get();
+		$lang = $request->lang;
+	    $country= Country::select('id')->where('name', 'like', '%'.$request->country.'%' )->first();
+	    $services = Service::where('country_id',$country->id)->get();
+	    $services = json_decode($services, true);
+	    $services = array_map(function ($item) use ($lang) {
+		    return [
+			    'id' => $item['id'],
+			    'name' => $item['name'][$lang],
+			    'price' => $item['price'],
+			    'oldprice' => $item['oldprice'],
+			    'image' => $item['image'],
+		    ];
+	    }, $services);
 		return $this->ApiResponse(200,'Services',null, $services);
     }
 
