@@ -13,12 +13,13 @@ return new class extends Migration
     {
         Schema::create('product_rates', function (Blueprint $table) {
             $table->id();
-	        $table->foreignid('user_id')->constrained('users')->ondelete('cascade');
-			$table->string('productEvluation');
+			$table->string('name');
+	        $table->foreignid('product_id')->constrained('products')->ondelete('cascade');
+			$table->string('productEvaluation');
 			$table->text('comment')->nullable();
 			$table->integer('rate');
 			$table->date('commentDate');
-            $table->timestamps();
+	        $table->timestamps();
         });
     }
 

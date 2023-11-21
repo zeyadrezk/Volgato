@@ -10,16 +10,17 @@
 		use HasFactory;
 		
 		protected $fillable = [
-			'user_id',
-			'productEvluation',
+			'name',
+			'productEvaluation',
 			'comment',
 			'rate',
 			'commentDate',
+			'product_id'
 		
 		];
 		
 		protected $casts = [
-			'productEvluation'=>'array',
+			'productEvaluation'=>'array',
 			
 		
 		

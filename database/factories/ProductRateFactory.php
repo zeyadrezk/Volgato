@@ -17,12 +17,13 @@ class ProductRateFactory extends Factory
     public function definition(): array
     {
         return [
-	        'user_id'=>1,
-	        'productEvluation'=>['ar'=>fake()->name,'en'=>fake()->name],
+	        'name'=>fake()->name,
+	        'productEvaluation'=>['ar'=>fake()->name,'en'=>fake()->name],
 	        'comment'=>fake()->name,
 	        'rate'=>fake()->biasedNumberBetween(1,5),
 	        'commentDate'=>fake()->date(),
-	        
+	        'product_id'=>fake()->biasedNumberBetween(1,5),
+        
         ];
     }
 }

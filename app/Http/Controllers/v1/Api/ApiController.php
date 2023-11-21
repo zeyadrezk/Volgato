@@ -43,17 +43,20 @@
 			$rates = array_map(function ($item) use ($lang) {
 				return [
 					'id' => $item['id'],
-					'user_id' => $item['user_id'],
-					'productEvluation' => $item['productEvluation'][$lang],
+					'name' => $item['name'],
+					'productEvaluation' => $item['productEvaluation'][$lang],
+					'rate' => $item['rate'],
 				];
 			}, $rates);
-			$numbRate = ProductRate::count();
-			$rateStars = ['1'=>ProductRate::where('rate',1)->count(), '2'=>ProductRate::where('rate',  2)->count(), '3'=>ProductRate::where('rate',3)->count(), '4'=>ProductRate::where('rate',4)->count(), '5'=>ProductRate::where('rate',5)->count()];
+			$numbRate = ProductRate::where('product_id',$request->product_id)->count();
+			$rateStars = ['1'=>ProductRate::where('rate',1)->where('product_id',$request->product_id)->count(), '2'=>ProductRate::where('rate',  2)->where('product_id',$request->product_id)->count(), '3'=>ProductRate::where('rate',3)->where('product_id',$request->product_id)->count(), '4'=>ProductRate::where('rate',4)->where('product_id',$request->product_id)->count(), '5'=>ProductRate::where('rate',5)->where('product_id',$request->product_id)->count()];
 			$totalRate = ProductRate::sum('Rate');
-			$avergeRate = $totalRate / $numbRate ;
-			
+			if( $numbRate == 0 ) {
+				$avergeRate = 0;
+			}else {
+				$avergeRate = $totalRate / $numbRate;
+			}
 			$allRates = ['stars'=>$rateStars ,'averageStars'=>$avergeRate,'numbRates'=>$numbRate,'rates'=> $rates];
-			
 			
 			return $this->ApiResponse(200,'success','',array('products' => $products, 'allRates' => $allRates));
 			
