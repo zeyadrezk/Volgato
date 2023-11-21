@@ -22,6 +22,7 @@ return new class extends Migration
 	        $table->text('short_description');
 	        $table->decimal('total_rate');
 	        $table->foreignId('country_id')->constrained('countries')->onDelete('cascade');
+			$table->string('duration');
 	        $table->timestamps();
         });
     }

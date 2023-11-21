@@ -27,6 +27,7 @@ class ServiceFactory extends Factory
 	        'short_description'=>['en'=>fake()->text,'ar'=>fake()->text],
 	        'total_rate'=>fake()->biasedNumberBetween(1,5),
 	        'country_id'=>fake()->biasedNumberBetween(1,3),
+	        'duration'=>fake()->biasedNumberBetween(1,3),
         ];
     }
 }

@@ -5,6 +5,7 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\Category;
 use App\Models\Country;
+use App\Models\ServiceRate;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -22,9 +23,12 @@ class DatabaseSeeder extends Seeder
         // ]);
 	    category::create([
 		    'name' => fake()->name,
+		    'image'=>public_path('images/categories/2.jpg'),
 	    ]);
 	    category::create([
 		    'name' => fake()->name,
+		    'image'=>public_path('images/categories/1.jpg'),
+	    
 	    ]);
 	    
 	    $this->call([
@@ -32,6 +36,7 @@ class DatabaseSeeder extends Seeder
 		    ServiceSeeder::class,
 		    ProductSeeder::class,
 		    ProductRateSeeder::class,
+		    ServiceRateSeeder::class,
 	    ]);
     }
 }

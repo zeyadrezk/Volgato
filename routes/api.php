@@ -34,7 +34,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 	Route::get('/TermsAndConditions',[TermsCondtionsController::class,'TermsCondtions'])->name('TermsCondtions');
 	Route::get('/country/{lang}',[CountryController::class,'index'])->name('countries');
 	Route::get('/getcat'    ,[MainController::class,'getcat'])->name('getcat');
-	Route::post('/ProductsDetails',[ApiController::class,'details_products'])->name('products.details');
+	Route::get('/ProductsDetails/{lang}/{product_id}',[ApiController::class,'details_products'])->name('products.details');
+	Route::get('/ProductRate/{lang}/{product_id}',[ApiController::class,'ProductRate'])->name('ProductRate');
+	Route::get('/ServicesDetails/{lang}/{service_id}',[ApiController::class,'details_service'])->name('ServicesDetails');
 	
 	Route::group([
 		'controller' => UserController::class,

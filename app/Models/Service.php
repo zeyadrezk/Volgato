@@ -19,6 +19,7 @@ class Service extends Model
 		'image',
 		'details',
 		'total_rate',
+		'duration',
 	];
 	protected $casts =[
 		'name'=>'array',
