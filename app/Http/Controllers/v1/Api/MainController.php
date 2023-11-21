@@ -17,7 +17,7 @@ class MainController extends Controller
 	{
 		$lang = $request->lang;
 	 
-		$products = Category::get();
+		$categories = Category::get();
 	//	$products = json_decode($products, true);
 // 		$products = array_map(function ($item) use ($lang) {
 // 			return [
@@ -26,6 +26,6 @@ class MainController extends Controller
 // 				'image' => $item['image'],
 // 			];
 // 		}, $products);
-		return $this->ApiResponse(200,'success',null, array('listcategories'=> $products));
+		return $this->ApiResponse(200,'success',null, array('listcategories'=> $categories));
 	}
 }

@@ -1,5 +1,6 @@
 <?php
 	
+	use App\Http\Controllers\v1\Api\ApiController;
 	use App\Http\Controllers\v1\Api\CountryController;
 	use App\Http\Controllers\v1\Api\HomeController;
 	use App\Http\Controllers\v1\Api\ProductController;
@@ -32,19 +33,19 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 	Route::get('/WhoAreWe',[WhoAreWeController::class,'WhoAreWe'])->name('WhoAreWe');
 	Route::get('/TermsAndConditions',[TermsCondtionsController::class,'TermsCondtions'])->name('TermsCondtions');
 	Route::get('/country/{lang}',[CountryController::class,'index'])->name('countries');
-     Route::get('/getcat',[MainController::class,'getcat'])->name('getcat');	
+	Route::get('/getcat'    ,[MainController::class,'getcat'])->name('getcat');
+	Route::post('/ProductsDetails',[ApiController::class,'details_products'])->name('products.details');
 	
 	Route::group([
 		'controller' => UserController::class,
 		'middleware'=>'guest',
 		'prefix' => 'user',
-		
 	], function () {
 	Route::post('/login','login')->name('login');
 	Route::get('/login','login')->name('login');
 	Route::post('/register','register')->name('register');
-	
 	});
+	
 	
 	Route::group([
 		'controller' => ServiceController::class,

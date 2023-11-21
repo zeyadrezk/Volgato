@@ -18,6 +18,7 @@ class Service extends Model
 		'country_id',
 		'image',
 		'details',
+		'total_rate',
 	];
 	protected $casts =[
 		'name'=>'array',

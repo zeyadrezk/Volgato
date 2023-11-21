@@ -4,8 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\Category;
-use App\Models\country;
-use App\Models\ServiceTrans;
+use App\Models\Country;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -15,7 +14,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        //  \App\Models\User::factory(5)->create();
+          \App\Models\User::factory(5)->create();
 
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',
@@ -32,6 +31,7 @@ class DatabaseSeeder extends Seeder
 		    CountrySeeder::class,
 		    ServiceSeeder::class,
 		    ProductSeeder::class,
+		    ProductRateSeeder::class,
 	    ]);
     }
 }

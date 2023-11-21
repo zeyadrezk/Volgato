@@ -17,10 +17,14 @@ return new class extends Migration
 			$table->decimal('oldprice',10,2)->required();
 	        $table->string('name')->required();
 	        $table->string('image')->nullable();
+	        $table->string('secondImage')->nullable();
+	        $table->string('advantages')->nullable();
+	        $table->string('Video')->nullable();
 	        $table->text('short_description');
 	        $table->text('description');
 	        $table->text('details');
 	        $table->integer('quantity');
+	        $table->decimal('total_rate');
 	        $table->foreignid('category_id')->constrained('categories')->ondelete('cascade');
 	        $table->foreignid('country_id')->constrained('countries')->ondelete('cascade');
 	        $table->timestamps();

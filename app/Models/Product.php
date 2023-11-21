@@ -15,10 +15,13 @@ class Product extends Model
 		'price',
 		'oldprice',
 		'image',
-		'sencondimg',
 		'short_description',
 		'description',
 		'quantity',
+		'total_rate',
+		'secondImage',
+		'advantages',
+		'video',
 		'category_id',
 		'country_id',
 		
@@ -29,6 +32,8 @@ class Product extends Model
 		'description'=>'array',
 		'short_description'=>'array',
 		'details'=>'array',
+		'advantages'=>'array',
+		
 	
 	];
 	
