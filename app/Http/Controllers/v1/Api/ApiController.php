@@ -16,6 +16,7 @@
 		
 		public function details_products(Request $request)
 		{
+			//select products with language ('ar','en')
 			$lang = $request->lang;
 			$products = product::where('id',$request->product_id)->get();
 			$products = json_decode($products, true);
@@ -36,7 +37,16 @@
 				];
 			}, $products);
 			
+			//select rates and evaluations with languages ('ar','en')
 			$rates = ProductRate::all();
+			$rates = json_decode($rates, true);
+			$rates = array_map(function ($item) use ($lang) {
+				return [
+					'id' => $item['id'],
+					'user_id' => $item['user_id'],
+					'productEvluation' => $item['productEvluation'][$lang],
+				];
+			}, $rates);
 			$numbRate = ProductRate::count();
 			$rateStars = ['1'=>ProductRate::where('rate',1)->count(), '2'=>ProductRate::where('rate',  2)->count(), '3'=>ProductRate::where('rate',3)->count(), '4'=>ProductRate::where('rate',4)->count(), '5'=>ProductRate::where('rate',5)->count()];
 			$totalRate = ProductRate::sum('Rate');
@@ -48,4 +58,9 @@
 			return $this->ApiResponse(200,'success','',array('products' => $products, 'allRates' => $allRates));
 			
 		}
+		
+		
+		
+		
+		
 	}
