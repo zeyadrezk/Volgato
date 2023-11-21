@@ -8,6 +8,7 @@
 	use App\Http\Controllers\v1\static_pages\AboutApplicationController;
 	use App\Http\Controllers\v1\static_pages\TermsCondtionsController;
 	use App\Http\Controllers\v1\static_pages\WhoAreWeController;
+		use App\Http\Controllers\v1\Api\MainController;
 	use Illuminate\Support\Facades\Request;
 	use Illuminate\Support\Facades\Route;
 	
@@ -31,7 +32,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 	Route::get('/WhoAreWe',[WhoAreWeController::class,'WhoAreWe'])->name('WhoAreWe');
 	Route::get('/TermsAndConditions',[TermsCondtionsController::class,'TermsCondtions'])->name('TermsCondtions');
 	Route::get('/country/{lang}',[CountryController::class,'index'])->name('countries');
-	
+     Route::get('/getcat',[MainController::class,'getcat'])->name('getcat');	
 	
 	Route::group([
 		'controller' => UserController::class,
@@ -60,6 +61,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 		'as' => 'Product.',
 	], function () {
 	Route::post('/','index')->name('index');
+	Route::get('/catproducts','catproducts')->name('catproducts');
+	
 	});
 	
 	Route::group([

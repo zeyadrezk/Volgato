@@ -18,7 +18,7 @@ class ServiceController extends Controller
     public function index(Request $request)
     {
 		$lang = $request->lang;
-	    $country= Country::select('id')->where('name', 'like', '%'.$request->country.'%' )->first();
+	    $country= Country::select('id')->where('id', 'like', '%'.$request->country.'%' )->first();
 	    $services = Service::where('country_id',$country->id)->get();
 	    $services = json_decode($services, true);
 	    $services = array_map(function ($item) use ($lang) {

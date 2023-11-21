@@ -15,11 +15,13 @@ class Product extends Model
 		'price',
 		'oldprice',
 		'image',
+		'sencondimg',
 		'short_description',
 		'description',
 		'quantity',
 		'category_id',
 		'country_id',
+		
 	];
 	
 	protected $casts = [
