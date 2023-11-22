@@ -15,8 +15,8 @@
 			'comment',
 			'rate',
 			'commentDate',
-			'product_id'
-		
+			'product_id',
+	    	'user_id'
 		];
 		
 		protected $casts = [

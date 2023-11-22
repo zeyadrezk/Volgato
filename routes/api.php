@@ -36,7 +36,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 	Route::get('/getcat'    ,[MainController::class,'getcat'])->name('getcat');
 	Route::get('/ProductsDetails/{lang}/{product_id}',[ApiController::class,'details_products'])->name('products.details');
 	Route::get('/ProductRate/{lang}/{product_id}',[ApiController::class,'ProductRate'])->name('ProductRate');
-	Route::get('/ServicesDetails/{lang}/{service_id}',[ApiController::class,'details_service'])->name('ServicesDetails');
+	Route::get('/ServiceRate/{lang}/{service_id}',[ApiController::class,'ServiceRate'])->name('ServiceRate');
+	Route::get('/getcatapp'    ,[ApiController::class,'getcatapp'])->name('getcatapp');
+	Route::get('/ServicesDetails/{lang}/{service_id}',[ApiController::class,'details_service'])->name('details_service');
+	Route::post('/addreview',[ApiController::class,'addreview'])->name('addreview');
+		Route::post('/checkauth',[ApiController::class,'checkauth'])->name('checkauth');
 	
 	Route::group([
 		'controller' => UserController::class,

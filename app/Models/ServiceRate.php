@@ -15,6 +15,7 @@ class ServiceRate extends Model
 		'rate',
 		'commentDate',
 		'service_id',
+		'user_id'
 	
 	];
 	

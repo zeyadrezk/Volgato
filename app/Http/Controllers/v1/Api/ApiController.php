@@ -8,15 +8,34 @@
 	use App\Models\ProductRate;
 	use App\Models\Service;
 	use App\Models\ServiceRate;
-	
-	
+	use App\Models\ProductFeature;
+	use App\Models\User;
+	use Illuminate\Http\Request;
+	use Illuminate\Support\Facades\Auth;
+	use Session;
 	class ApiController extends Controller
 	{
 		use ApiTrait;
 		
 		public function details_products($lang, $product_id)
 		{
-			//select products with language ('ar','en')
+		
+		
+		       		$numbRate = ProductRate::where('product_id', $product_id)->count();
+			$totalRate = ProductRate::where('product_id', $product_id)->sum('Rate');
+			if ($numbRate == 0) {
+				$avergeRate = 0;
+			} else {
+				$avergeRate = $totalRate / $numbRate;
+			}
+		    $rateStars = ['key1' => ProductRate::where('rate', 1)->where('product_id', $product_id)->count(),
+		    'key2' => ProductRate::where('rate', 2)->where('product_id', $product_id)->count(),
+		    'key3' => ProductRate::where('rate', 3)->where('product_id', $product_id)->count(),
+		    'key4' => ProductRate::where('rate', 4)->where('product_id', $product_id)->count(),
+		    'key5' => ProductRate::where('rate', 5)->where('product_id', $product_id)->count()];
+		         
+		        
+ 
 			$products = product::where('id', $product_id)->get();
 			$products = json_decode($products, true);
 			$products = array_map(function ($item) use ($lang) {
@@ -27,65 +46,105 @@
 					'oldprice' => $item['oldprice'],
 					'image' => $item['image'],
 					'secondImage' => $item['secondImage'],
-					'advantages' => $item['advantages'],
 					'short_description' => $item['short_description'][$lang],
 					'description' => $item['description'][$lang],
 					'details' => $item['details'][$lang],
 					'quantity' => $item['quantity'],
-					'total_rate' => $item['total_rate'],
+				 
 				];
 			}, $products);
 			
-			//select rates and evaluations with languages ('ar','en')
-			$rates = ProductRate::all()->where('product_id', $product_id);
-			$rates = json_decode($rates, true);
-			$rates = array_map(function ($item) use ($lang) {
-				return [
-					'id' => $item['id'],
-					'name' => $item['name'],
-					'productEvaluation' => $item['productEvaluation'][$lang],
-					'rate' => $item['rate'],
-				];
-			}, $rates);
-			$numbRate = ProductRate::where('product_id', $product_id)->count();
-			$rateStars = ['1' => ProductRate::where('rate', 1)->where('product_id', $product_id)->count(), '2' => ProductRate::where('rate', 2)->where('product_id', $product_id)->count(), '3' => ProductRate::where('rate', 3)->where('product_id', $product_id)->count(), '4' => ProductRate::where('rate', 4)->where('product_id', $product_id)->count(), '5' => ProductRate::where('rate', 5)->where('product_id', $product_id)->count()];
-			$totalRate = ProductRate::where('product_id', $product_id)->sum('Rate');
-			if ($numbRate == 0) {
-				$avergeRate = 0;
-			} else {
-				$avergeRate = $totalRate / $numbRate;
-			}
-			$allRates = ['stars' => $rateStars, 'averageStars' => $avergeRate, 'numbRates' => $numbRate, 'rates' => $rates];
-			
-			return $this->ApiResponse(200, 'success', '', array('products' => $products, 'allRates' => $allRates));
+		 		$ProductFeature= ProductFeature::all()->where('product_id', $product_id);
+		 
+			$data=['productfeature'=>$ProductFeature,'products' => $products,'averageStars' => $avergeRate,'numbRate' => $numbRate,'total_start'=>$rateStars];
+			return $this->ApiResponse(200, 'success', '',$data);
 			
 		}
 		
 		public function ProductRate($lang, $product_id)
 		{
 			
-			//select rates and evaluations with languages ('ar','en')
+		
 			$rates = ProductRate::all()->where('product_id', $product_id);
-			$rates = json_decode($rates, true);
-			$rates = array_map(function ($item) use ($lang) {
-				return [
-					'id' => $item['id'],
-					'name' => $item['name'],
-					'productEvaluation' => $item['productEvaluation'][$lang],
-					'rate' => $item['rate'],
-				];
-			}, $rates);
 			$numbRate = ProductRate::where('product_id', $product_id)->count();
-			$rateStars = ['1' => ProductRate::where('rate', 1)->where('product_id', $product_id)->count(), '2' => ProductRate::where('rate', 2)->where('product_id', $product_id)->count(), '3' => ProductRate::where('rate', 3)->where('product_id', $product_id)->count(), '4' => ProductRate::where('rate', 4)->where('product_id', $product_id)->count(), '5' => ProductRate::where('rate', 5)->where('product_id', $product_id)->count()];
 			$totalRate = ProductRate::where('product_id', $product_id)->sum('Rate');
 			if ($numbRate == 0) {
 				$avergeRate = 0;
 			} else {
 				$avergeRate = $totalRate / $numbRate;
 			}
-			$allRates = ['stars' => $rateStars, 'averageStars' => $avergeRate, 'numbRates' => $numbRate, 'rates' => $rates];
+		
+		
+		    $data['averageStars'] =$avergeRate;
+		       $data['numbRate'] =$numbRate;
+		       
+		    $rateStars = ['key1' => ProductRate::where('rate', 1)->where('product_id', $product_id)->count(),
+		    'key2' => ProductRate::where('rate', 2)->where('product_id', $product_id)->count(),
+		    'key3' => ProductRate::where('rate', 3)->where('product_id', $product_id)->count(),
+		    'key4' => ProductRate::where('rate', 4)->where('product_id', $product_id)->count(),
+		    'key5' => ProductRate::where('rate', 5)->where('product_id', $product_id)->count()];
+		        $data['total_start'] =$rateStars;    
+		          
+		            if (count($rates) > 0) {
+            foreach ($rates as $list_review) {
+                $productlist['comment'] = $list_review->comment;
+                $productlist['rate'] = $list_review->rate;
+                $productlist['date'] = $list_review->created_at;
+                $productlist['product_id'] = $list_review->product_id;
+                $client_name = User::select("name")->where('id', $list_review->user_id)->first();
+                $productlist['client_name'] = $client_name->name;
+                 $data['list'][] = $productlist;
+            }
+        } else {
+            $data['list'] = [];
+        }
+        
+        	//$allRates = ['averageStars' => $avergeRate,'rates' => $rates];
+			return $this->ApiResponse(200, 'success', '',$data);
+		    
+		}
+		
+		
+			public function ServiceRate($lang, $service_id)
+		{
 			
-			return $this->ApiResponse(200, 'success', '', array('allRates' => $allRates));
+		
+			$rates = ServiceRate::all()->where('service_id', $service_id);
+			$numbRate = ServiceRate::where('service_id', $service_id)->count();
+			$totalRate = ServiceRate::where('service_id', $service_id)->sum('Rate');
+			if ($numbRate == 0) {
+				$avergeRate = 0;
+			} else {
+				$avergeRate = $totalRate / $numbRate;
+			}
+		
+		
+		    $data['averageStars'] =$avergeRate;
+		       $data['numbRate'] =$numbRate;
+		       
+		    $rateStars = ['key1' => ServiceRate::where('rate', 1)->where('service_id', $service_id)->count(),
+		    'key2' => ServiceRate::where('rate', 2)->where('service_id', $service_id)->count(),
+		    'key3' => ServiceRate::where('rate', 3)->where('service_id', $service_id)->count(),
+		    'key4' => ServiceRate::where('rate', 4)->where('service_id', $service_id)->count(),
+		    'key5' => ServiceRate::where('rate', 5)->where('service_id', $service_id)->count()];
+		        $data['total_start'] =$rateStars;    
+		          
+		            if (count($rates) > 0) {
+            foreach ($rates as $list_review) {
+                $productlist['comment'] = $list_review->comment;
+                $productlist['rate'] = $list_review->rate;
+                $productlist['date'] = $list_review->created_at;
+                $productlist['service_id'] = $list_review->service_id;
+                $client_name = User::select("name")->where('id', $list_review->user_id)->first();
+                $productlist['client_name'] = $client_name->name;
+                 $data['list'][] = $productlist;
+            }
+        } else {
+            $data['list'] = [];
+        }
+        
+			return $this->ApiResponse(200, 'success', '',$data);
+		    
 		}
 		
 		public function details_service($lang, $service_id)
@@ -109,17 +168,7 @@
 				];
 			}, $services);
 			
-//			select rates and evaluations with languages ('ar','en')
-			$rates = ServiceRate::where('service_id', $service_id)->get();
-			$rates = json_decode($rates, true);
-			$rates = array_map(function ($item) use ($lang) {
-				return [
-					'id' => $item['id'],
-					'name' => $item['name'],
-					'serviceEvaluation' => $item['serviceEvaluation'][$lang],
-					'rate' => $item['rate'],
-				];
-			}, $rates);
+
 			$numbRate = ServiceRate::where('service_id', $service_id)->count();
 			$rateStars = ['1' => ServiceRate::where('rate', 1)->where('service_id', $service_id)->count(), '2' => ServiceRate::where('rate', 2)->where('service_id', $service_id)->count(), '3' => ServiceRate::where('rate', 3)->where('service_id', $service_id)->count(), '4' => ServiceRate::where('rate', 4)->where('service_id', $service_id)->count(), '5' => ServiceRate::where('rate', 5)->where('service_id', $service_id)->count()];
 			$totalRate = ServiceRate::where('service_id', $service_id)->sum('Rate');
@@ -128,9 +177,47 @@
 			} else {
 				$avergeRate = $totalRate / $numbRate;
 			}
-			$allRates = ['stars' => $rateStars, 'averageStars' => $avergeRate, 'numbRates' => $numbRate, 'rates' => $rates];
+			
+			$allRates = ['stars' => $rateStars, 'averageStars' => $avergeRate, 'numbRates' => $numbRate];
 			
 			return $this->ApiResponse(200, 'success', '', array('services' => $services, 'allRates' => $allRates));
+			
+			
+		}
+		
+		
+		
+		
+		
+		
+		public function addreview(Request $request)
+		{
+			
+		$lang = $request->lang;
+  //$user = Auth::user();
+   
+        $order = ProductRate::create([
+            'user_id'            =>  2,
+            'comment'              =>  $request->comment,
+            'rate'                =>  $request->rate,
+            'product_id'           =>  $request->product_id,
+            'commentDate'         =>date("Y-m-d"),
+        ]);
+
+
+			return $this->ApiResponse(200, 'success', '', array());
+			
+			
+		}
+		
+		
+				
+		public function checkauth(Request $request)
+		{
+			
+		$lang = $request->lang;
+  uth('api')->user();
+   	return $this->ApiResponse(200, 'success', '', array());
 			
 			
 		}

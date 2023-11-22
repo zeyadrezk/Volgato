@@ -51,7 +51,7 @@ class ProductController extends Controller
 				'price' => $item['price'],
 				'oldprice' => $item['oldprice'],
 				'image' => $item['image'],
-				'sencondimg' => $item['sencondimg'],
+				'secondImage' => $item['secondImage'],
 				'short_description' => $item['short_description'][$lang],
 				'description' => $item['description'][$lang],
 				'details' => $item['details'][$lang],
