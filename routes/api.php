@@ -31,7 +31,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 	Route::get('/about_app',[AboutApplicationController::class,'AboutApplication'])->name('about_app');
 	Route::get('/WhoAreWe',[WhoAreWeController::class,'WhoAreWe'])->name('WhoAreWe');
-	Route::get('/TermsAndConditions',[TermsCondtionsController::class,'TermsCondtions'])->name('TermsCondtions');
+	Route::get('/TermsAndConditions',[TermsCondtionsController::class,'TermsConditions'])->name('TermsConditions');
 	Route::get('/country/{lang}',[CountryController::class,'index'])->name('countries');
 	Route::get('/getcat'    ,[MainController::class,'getcat'])->name('getcat');
 	Route::get('/ProductsDetails/{lang}/{product_id}',[ApiController::class,'details_products'])->name('products.details');
@@ -39,8 +39,14 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 	Route::get('/ServiceRate/{lang}/{service_id}',[ApiController::class,'ServiceRate'])->name('ServiceRate');
 	Route::get('/getcatapp'    ,[ApiController::class,'getcatapp'])->name('getcatapp');
 	Route::get('/ServicesDetails/{lang}/{service_id}',[ApiController::class,'details_service'])->name('details_service');
-	Route::post('/addreview',[ApiController::class,'addreview'])->name('addreview');
-		Route::post('/checkauth',[ApiController::class,'checkauth'])->name('checkauth');
+	Route::post('/addreview',[ApiController::class,'addreview'])->name('addreview')->middleware('auth:sanctum');
+	Route::get('/Sale/{lang}',[ApiController::class,'Sale'])->name('Sale');
+	Route::get('/cart/{lang}',[ApiController::class,'cart'])->name('cart')->middleware('auth:sanctum');
+	Route::get('/deletecart/{lang}',[ApiController::class,'deletecart'])->name('deletecart');
+	
+	
+	
+	
 	
 	Route::group([
 		'controller' => UserController::class,

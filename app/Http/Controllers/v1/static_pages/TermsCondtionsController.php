@@ -8,7 +8,7 @@ use App\Http\Traits\ApiTrait;
 class TermsCondtionsController extends Controller
 {
 	use ApiTrait;
-    public function TermsCondtions()
+    public function TermsConditions()
     {
 	    return $this->ApiResponse(200, __('api.terms'),null , __('api.terms'));
 	    

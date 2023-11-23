@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
 			$table->string('name');
 	        $table->foreignid('product_id')->constrained('products')->ondelete('cascade');
+	        $table->foreignid('user_id')->constrained('users')->ondelete('cascade');
 			$table->string('productEvaluation');
 			$table->text('comment')->nullable();
 			$table->integer('rate');

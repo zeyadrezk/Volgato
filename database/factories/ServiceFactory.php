@@ -21,7 +21,7 @@ class ServiceFactory extends Factory
 	        'price'=>fake()->randomNumber(3),
 	        'oldprice'=>fake()->randomNumber(3),
 	        'price'=>fake()->randomNumber(3),
-	        'image'=>public_path('images/products/1.jpg'),
+	        'image'=>'images/products/1.jpg',
 	        'details'=>['en'=>fake()->text,'ar'=>fake()->text],
 	        'description'=>['en'=>fake()->text,'ar'=>fake()->text],
 	        'short_description'=>['en'=>fake()->text,'ar'=>fake()->text],

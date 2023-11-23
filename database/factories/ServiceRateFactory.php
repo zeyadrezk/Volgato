@@ -23,6 +23,8 @@ class ServiceRateFactory extends Factory
 	        'rate'=>fake()->biasedNumberBetween(1,5),
 	        'commentDate'=>fake()->date(),
 	        'service_id'=>fake()->biasedNumberBetween(1,5),
+	        'user_id'=>fake()->biasedNumberBetween(1,2),
+	        
         ];
     }
 }

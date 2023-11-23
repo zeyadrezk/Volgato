@@ -23,6 +23,7 @@ class ProductRateFactory extends Factory
 	        'rate'=>fake()->biasedNumberBetween(1,5),
 	        'commentDate'=>fake()->date(),
 	        'product_id'=>fake()->biasedNumberBetween(1,5),
+	        'user_id'=>fake()->biasedNumberBetween(1,2),
         
         ];
     }
