@@ -1,9 +1,8 @@
 <?php
 
-namespace Database\Seeders;
+namespace Database\Seeders\cart;
 
-use App\Models\CartItem;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\cart\CartItem;
 use Illuminate\Database\Seeder;
 
 class CartItemSeeder extends Seeder
@@ -16,4 +15,7 @@ class CartItemSeeder extends Seeder
 	    CartItem::factory()->count(5)->create();
 	    
     }
+	
+	
+	
 }

@@ -1,11 +1,11 @@
 <?php
 
-namespace Database\Factories;
+namespace Database\Factories\services;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\ServiceRate>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\services\ServiceRate>
  */
 class ServiceRateFactory extends Factory
 {

@@ -1,9 +1,8 @@
 <?php
 
-namespace Database\Seeders;
+namespace Database\Seeders\cart;
 
-use App\Models\Cart;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\cart\Cart;
 use Illuminate\Database\Seeder;
 
 class CartSeeder extends Seeder
@@ -13,7 +12,7 @@ class CartSeeder extends Seeder
      */
     public function run(): void
     {
-	    Cart::factory()->count(5)->create();
+	    Cart::factory()->count(3)->create();
 	    
     }
 }

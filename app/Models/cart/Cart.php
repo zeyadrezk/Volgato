@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\cart;
 
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -25,6 +26,7 @@ class Cart extends Model
 	{
 		return $this->hasMany(CartItem::class);
 	}
+
 	
 	
 	

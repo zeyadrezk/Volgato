@@ -33,17 +33,39 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 	Route::get('/WhoAreWe',[WhoAreWeController::class,'WhoAreWe'])->name('WhoAreWe');
 	Route::get('/TermsAndConditions',[TermsCondtionsController::class,'TermsConditions'])->name('TermsConditions');
 	Route::get('/country/{lang}',[CountryController::class,'index'])->name('countries');
-	Route::get('/getcat'    ,[MainController::class,'getcat'])->name('getcat');
-	Route::get('/ProductsDetails/{lang}/{product_id}',[ApiController::class,'details_products'])->name('products.details');
-	Route::get('/ProductRate/{lang}/{product_id}',[ApiController::class,'ProductRate'])->name('ProductRate');
-	Route::get('/ServiceRate/{lang}/{service_id}',[ApiController::class,'ServiceRate'])->name('ServiceRate');
-	Route::get('/getcatapp'    ,[ApiController::class,'getcatapp'])->name('getcatapp');
-	Route::get('/ServicesDetails/{lang}/{service_id}',[ApiController::class,'details_service'])->name('details_service');
-	Route::post('/addreview',[ApiController::class,'addreview'])->name('addreview')->middleware('auth:sanctum');
-	Route::get('/Sale/{lang}',[ApiController::class,'Sale'])->name('Sale');
-	Route::get('/cart/{lang}',[ApiController::class,'cart'])->name('cart')->middleware('auth:sanctum');
-	Route::get('/deletecart/{lang}',[ApiController::class,'deletecart'])->name('deletecart');
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	Route::group([
+		'controller' => ApiController::class,
+	], function () {
+		//product routes
+		Route::get('/getcat/{lang}'    ,'GetCategory')->name('GetCategory');
+		Route::get('/ProductsDetails/{lang}/{product_id}','details_products')->name('products.details');
+		Route::get('/ProductRate/{lang}/{product_id}','ProductRate')->name('ProductRate');
+		
+		//services routes
+		Route::get('/ServiceRate/{lang}/{service_id}','ServiceRate')->name('ServiceRate');
+		Route::get('/ServicesDetails/{lang}/{service_id}','details_service')->name('details_service');
+		
+		Route::post('/addreview','AddReview')->name('AddReview')->middleware('auth:sanctum');
+		Route::get('/Sale/{lang}','Sale')->name('Sale');
+		
+		
+		//cart routes
+		Route::get('/cart/{lang}','cart')->name('cart')->middleware('auth:sanctum');
+		Route::delete('/deleteCart','deleteCart')->name('deleteCart')->middleware('auth:sanctum');
+		Route::delete('/deleteCartItem','deleteCartItem')->name('deleteCartItem')->middleware('auth:sanctum');
+		Route::put('/ChangeQuantityItem','ChangeQuantityItem')->name('ChangeQuantityItem')->middleware('auth:sanctum');
+		
+	});
 	
 	
 	
@@ -53,8 +75,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 		'middleware'=>'guest',
 		'prefix' => 'user',
 	], function () {
-	Route::post('/login','login')->name('login');
-	Route::get('/login','login')->name('login');
+	Route::match(['get','post'],'/login','login')->name('login');
 	Route::post('/register','register')->name('register');
 	});
 	

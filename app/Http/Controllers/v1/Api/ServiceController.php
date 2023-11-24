@@ -3,11 +3,10 @@
 namespace App\Http\Controllers\v1\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Country;
-use App\Models\Service;
-use Carbon\Language;
-use Illuminate\Http\Request;
 use App\Http\Traits\ApiTrait;
+use App\Models\Country;
+use App\Models\services\Service;
+use Illuminate\Http\Request;
 
 class ServiceController extends Controller
 {
@@ -18,8 +17,8 @@ class ServiceController extends Controller
     public function index(Request $request)
     {
 		$lang = $request->lang;
-	    $country= Country::select('id')->where('id', 'like', '%'.$request->country.'%' )->first();
-	    $services = Service::where('country_id',$country->id)->get();
+		$country_id = $request->country_id;
+	    $services = Service::where('country_id',$country_id)->get();
 	    $services = json_decode($services, true);
 	    $services = array_map(function ($item) use ($lang) {
 		    return [

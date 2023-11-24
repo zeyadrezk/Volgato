@@ -5,9 +5,7 @@ namespace App\Http\Controllers\v1\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Traits\ApiTrait;
 use App\Models\Country;
-use App\Models\Product;
-use App\Models\Service;
-use App\Models\Category;
+use App\Models\product\Product;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -17,8 +15,8 @@ class ProductController extends Controller
 	public function index(Request $request)
 	{
 		$lang = $request->lang;
-		$country= Country::select('id')->where('id', 'like', '%'.$request->country.'%' )->first();
-		$products = product::where('country_id',$country->id)->get();
+		$country_id = $request->country_id;
+		$products = product::where('country_id',$country_id)->get();
 		$products = json_decode($products, true);
 		$products = array_map(function ($item) use ($lang) {
 			return [
@@ -27,7 +25,7 @@ class ProductController extends Controller
 				'price' => $item['price'],
 				'oldprice' => $item['oldprice'],
 				'image' => $item['image'],
-				'sencondimg' => $item['sencondimg'],
+				'secondImage' => $item['secondImage'],
 				'short_description' => $item['short_description'][$lang],
 				'description' => $item['description'][$lang],
 				'details' => $item['details'][$lang],

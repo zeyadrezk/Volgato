@@ -1,28 +1,17 @@
 <?php
 	
-	namespace App\Models;
+	namespace App\Models\product;
 	
 	use Illuminate\Database\Eloquent\Factories\HasFactory;
 	use Illuminate\Database\Eloquent\Model;
 	
-	class ProductRate extends Model
+	class Category extends Model
 	{
 		use HasFactory;
 		
 		protected $fillable = [
 			'name',
-			'productEvaluation',
-			'comment',
-			'rate',
-			'commentDate',
-			'product_id',
-	    	'user_id'
-		];
-		
-		protected $casts = [
-			'productEvaluation'=>'array',
-			
-		
+			'image',
 		
 		];
 		protected $hidden = [
@@ -30,4 +19,7 @@
 			'created_at',
 		];
 		
+		protected $casts = [
+			'name'=>'array',
+		];
 	}

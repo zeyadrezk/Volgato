@@ -3,10 +3,13 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use App\Models\CartItem;
-use App\Models\Category;
-use App\Models\Country;
-use App\Models\ServiceRate;
+use App\Models\User;
+use Database\Seeders\cart\CartItemSeeder;
+use Database\Seeders\cart\CartSeeder;
+use Database\Seeders\product\ProductRateSeeder;
+use Database\Seeders\product\ProductSeeder;
+use Database\Seeders\services\ServiceRateSeeder;
+use Database\Seeders\services\ServiceSeeder;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -16,7 +19,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-//          \App\Models\User::factory(5)->create();
+          User::factory(5)->create();
 
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',
@@ -33,13 +36,14 @@ class DatabaseSeeder extends Seeder
 //	    ]);
 	    
 	    $this->call([
-//		    CountrySeeder::class,
-//		    ServiceSeeder::class,
-//		    ProductSeeder::class,
-//		    ProductRateSeeder::class,
-//		    ServiceRateSeeder::class,
+		    CountrySeeder::class,
+		    CategorySeeder::class,
+		    ServiceSeeder::class,
+		    ProductSeeder::class,
+		    ProductRateSeeder::class,
+		    ServiceRateSeeder::class,
 		    CartSeeder::class,
-		    CartItem::class,
+		    CartItemSeeder::class,
 	    ]);
     }
 }

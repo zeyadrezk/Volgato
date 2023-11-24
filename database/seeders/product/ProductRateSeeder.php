@@ -1,9 +1,8 @@
 <?php
 
-namespace Database\Seeders;
+namespace Database\Seeders\product;
 
-use App\Models\ProductRate;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\product\ProductRate;
 use Illuminate\Database\Seeder;
 
 class ProductRateSeeder extends Seeder

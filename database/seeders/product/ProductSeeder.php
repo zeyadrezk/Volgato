@@ -1,10 +1,8 @@
 <?php
 
-namespace Database\Seeders;
+namespace Database\Seeders\product;
 
-use App\Models\Product;
-use App\Models\Service;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\product\Product;
 use Illuminate\Database\Seeder;
 
 class ProductSeeder extends Seeder

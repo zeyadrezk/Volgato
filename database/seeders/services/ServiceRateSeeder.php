@@ -1,9 +1,8 @@
 <?php
 
-namespace Database\Seeders;
+namespace Database\Seeders\services;
 
-use App\Models\ServiceRate;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\services\ServiceRate;
 use Illuminate\Database\Seeder;
 
 class ServiceRateSeeder extends Seeder

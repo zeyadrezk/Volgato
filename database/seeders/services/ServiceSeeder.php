@@ -1,9 +1,8 @@
 <?php
 
-namespace Database\Seeders;
+namespace Database\Seeders\services;
 
-use App\Models\Service;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\services\Service;
 use Illuminate\Database\Seeder;
 
 class ServiceSeeder extends Seeder

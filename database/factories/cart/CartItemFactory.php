@@ -1,11 +1,11 @@
 <?php
 
-namespace Database\Factories;
+namespace Database\Factories\cart;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\CartItem>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\cart\CartItem>
  */
 class CartItemFactory extends Factory
 {
@@ -17,7 +17,7 @@ class CartItemFactory extends Factory
     public function definition(): array
     {
         return [
-	        'cart_id'=>fake()->biasedNumberBetween(1,5),
+	        'cart_id'=>fake()->biasedNumberBetween(1,3),
 	        'product_id'=>fake()->biasedNumberBetween(1,5),
 	        'quantity'=>fake()->biasedNumberBetween(1,5),
         ];

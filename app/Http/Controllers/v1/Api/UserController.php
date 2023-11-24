@@ -23,7 +23,8 @@ class UserController extends Controller
 			$user = Auth::user();
 			$success['token'] =  $user->createToken($user->name)->plainTextToken;
 			$success['name'] =  $user->name;
-			return $this->ApiResponse(200,'User login successfully.', '',$success);
+			
+			return $this->ApiResponse(200,'login successfully.', '',$success);
 			
 		} else {
 			return $this->ApiResponse(401,'Unauthorised.',['error'=>'Unauthorised'],'');

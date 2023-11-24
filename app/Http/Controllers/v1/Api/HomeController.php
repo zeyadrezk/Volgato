@@ -3,14 +3,13 @@
 namespace App\Http\Controllers\v1\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Category;
-use App\Models\Country;
-use App\Models\Product;
-use App\Models\Service;
-use App\Models\Banner;
-
-use Illuminate\Http\Request;
 use App\Http\Traits\ApiTrait;
+use App\Models\Banner;
+use App\Models\Country;
+use App\Models\product\Category;
+use App\Models\product\Product;
+use App\Models\services\Service;
+use Illuminate\Http\Request;
 
 
 class HomeController extends Controller
@@ -20,9 +19,12 @@ class HomeController extends Controller
 	public function index(Request $request)
 	{
 		$lang = $request->lang;
-		$country= Country::select('id')->where('id', 'like', '%'.$request->country.'%' )->first();
-		$products = product::where('country_id',$country->id)->get();
-		$product = json_decode($products, true);
+		$country_id = $request->id;
+		
+		$product = product::where('country_id',$country_id)
+			->get();
+		
+		$product = json_decode($product, true);
 		$product = array_map(function ($item) use ($lang) {
 			return [
 				'id' => $item['id'],
@@ -35,8 +37,9 @@ class HomeController extends Controller
 			];
 		}, $product);
 		
-			$banners  =Banner::get();
-		$services = Service::where('country_id',$country->id)->get();
+		$banners  =Banner::get();
+		$services = Service::where('country_id',$country_id)
+			->get();
 		$services = json_decode($services, true);
 		$services = array_map(function ($item) use ($lang) {
 			return [
@@ -51,9 +54,24 @@ class HomeController extends Controller
 		
 		
 		
-		$category  = Category::all();
-		$hot_product =product::where('country_id',$country->id)->where('price','>','oldprice')->orderby('oldPrice','asc')->get();
+		$category  = Category::get();
+		$category = json_decode($category, true);
+		
+		$category = array_map(function ($item) use ($lang) {
+			return [
+				'id' => $item['id'],
+				'name' => $item['name'][$lang],
+				'image' => $item['image'],
+			];
+		}, $category);
+		
+		$hot_product =product::where('country_id',$country_id)
+			->where('price','>','oldprice')
+			->orderby('oldPrice','asc')
+			->get();
+		
 		$hot_product = json_decode($hot_product, true);
+		
 		$hot_product = array_map(function ($item) use ($lang) {
 			return [
 				'id' => $item['id'],
@@ -65,7 +83,13 @@ class HomeController extends Controller
 			];
 		}, $hot_product);
 		
-		$all = ['banners'=>$banners,'services' => $services,'category '=>$category,'products' => $products,'offerproducts'=>$product,'lastproducts'=>$hot_product];
+		$all = ['banners'=>$banners,
+			'services' => $services,
+			'category '=>$category,
+			'products' => $product,
+			'offerproducts'=>$product,
+			'lastproducts'=>$hot_product];
+		
 		return $this->ApiResponse(200,'Services products',null, $all);
 	
 	}

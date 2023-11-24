@@ -1,31 +1,39 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\product;
 
+use App\Models\Country;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Lang;
 
-class Service extends Model
+class Product extends Model
 {
-	use HasFactory;
-	protected $fillable =[
+    use HasFactory;
+	protected  $fillable = [
+		'id',
 		'name',
 		'price',
 		'oldprice',
-		'description',
-		'short_description',
-		'country_id',
 		'image',
-		'details',
+		'short_description',
+		'description',
+		'quantity',
 		'total_rate',
-		'duration',
+		'secondImage',
+		'advantages',
+		'video',
+		'category_id',
+		'country_id',
+		
 	];
-	protected $casts =[
+	
+	protected $casts = [
 		'name'=>'array',
 		'description'=>'array',
 		'short_description'=>'array',
 		'details'=>'array',
+		'advantages'=>'array',
+		
 	
 	];
 	
@@ -37,5 +45,9 @@ class Service extends Model
 	public function country(){
 		return $this->belongsTo(Country::class);
 	}
+	public function category(){
+		return $this->belongsTo(Category::class);
+	}
 	
+
 }
