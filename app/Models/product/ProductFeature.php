@@ -20,4 +20,8 @@ class ProductFeature extends Model
 			'updated_at',
 			'created_at',
 		];
+		
+		public function product(){
+			$this->belongsTo(Product::class);
+		}
 }

@@ -18,7 +18,6 @@ return new class extends Migration
 	        $table->string('name')->required();
 	        $table->string('image')->nullable();
 	        $table->string('secondImage')->nullable();
-	        $table->string('advantages')->nullable();
 	        $table->string('Video')->nullable();
 	        $table->text('short_description');
 	        $table->text('description');
