@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\v1\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UpdateProfile;
 use App\Http\Traits\ApiTrait;
 use App\Models\User;
+use DateTime;
 use GeoIp2\Record\Location;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -27,7 +29,7 @@ class UserController extends Controller
 			return $this->ApiResponse(200,'login successfully.', '',$success);
 			
 		} else {
-			return $this->ApiResponse(401,'Unauthorised.',['error'=>'Unauthorised'],'');
+			return $this->ApiResponse(401,'Unauthorized.',['error'=>'Unauthorized'],'');
 		}
 	}
 	
@@ -54,6 +56,21 @@ class UserController extends Controller
 		return $this->ApiResponse(200,'registered successfully', null ,$success);
 	}
 	
+	public function editProfile(){
+		$user = User::where('id',Auth::user()->id)->first();
+		return $this->ApiResponse(200,'success',null,array('user'=>$user));
+	}
+	public function updateProfile(UpdateProfile $request){
+		$user = User::where('id',Auth::user()->id)->first();
+		$user->update([
+			'name' => $request->name,
+			'email' => $request->email,
+			'phone'=>$request->phone,
+			'DateOfBirth'=>DateTime::createFromFormat('d/m/Y', $request->dateOfBirth),
+		]);
+		return $this->ApiResponse(200,'success',null,array('user'=>$user));
+		
+	}
 	
 
 	

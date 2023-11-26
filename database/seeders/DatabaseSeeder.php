@@ -6,6 +6,9 @@ namespace Database\Seeders;
 use App\Models\User;
 use Database\Seeders\cart\CartItemSeeder;
 use Database\Seeders\cart\CartSeeder;
+use Database\Seeders\order\OrderItemsSeeder;
+use Database\Seeders\order\OrderSeeder;
+use Database\Seeders\product\FavouriteProductSeeder;
 use Database\Seeders\product\ProductFeatureSeeder;
 use Database\Seeders\product\ProductRateSeeder;
 use Database\Seeders\product\ProductSeeder;
@@ -46,6 +49,12 @@ class DatabaseSeeder extends Seeder
 		    CartSeeder::class,
 		    CartItemSeeder::class,
 		    ProductFeatureSeeder::class,
+		    FavouriteProductSeeder::class,
+		    OrderSeeder::class,
+		    OrderItemsSeeder::class,
+	    
+	    
+	    
 	    ]);
     }
 }

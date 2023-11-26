@@ -6,7 +6,9 @@
 	use App\Http\Traits\ApiTrait;
 	use App\Models\cart\Cart;
 	use App\Models\cart\CartItem;
+	use App\Models\order\order;
 	use App\Models\product\Category;
+	use App\Models\product\FavouriteProduct;
 	use App\Models\product\Product;
 	use App\Models\product\ProductFeature;
 	use App\Models\product\ProductRate;
@@ -254,7 +256,11 @@
 			$cart = Cart::with('items.product')
 				->where('user_id', auth()->user()->id)
 				->get();
-			
+			if(empty($cart)){
+				Cart::create([
+					'user_id' => auth()->user()->id,
+				]);
+			}
 			$newitems = [];
 			foreach ($cart[0]->items as $items) {
 				$items = json_decode($items, true);
@@ -333,7 +339,7 @@
 					$cartitem->quantity--;
 					$cartitem->save();
 					return $this->ApiResponse(200, 'success', null, 'quantity decreased successfully');
-				} else {
+				} if($cartitem->quantity <= 0)  {
 					$cartitem->delete();
 					return $this->ApiResponse(200, 'success', null, 'Product deleted successfully');
 				}
@@ -346,5 +352,54 @@
 			
 		}
 		
+		
+		public function FavouriteProduct($lang){
+			$FavProducts = FavouriteProduct::with('product')
+				->where('user_id', Auth::user()->id)
+				->get();
+			
+			
+			$newFav = [];
+			foreach ($FavProducts as $items) {
+				$items = json_decode($items, true);
+				$items['product']['name'] = $items['product']['name'][$lang];
+				$items['product']['short_description'] = $items['product']['short_description'][$lang];
+				$items['product']['description'] = $items['product']['description'][$lang];
+				$items['product']['details'] = $items['product']['details'][$lang];
+				$newFav[] = $items;
+			}
+			$FavProducts = json_decode($FavProducts, true);
+			array_replace($FavProducts= $newFav);
+			
+			return $this->ApiResponse(200, 'success', null, array('FavouriteProducts' => $FavProducts));
+		}
+		
+		
+		public function orders($lang,$status){
+			
+			$orders = order::with('items.product')
+				->where('user_id', auth()->user()->id)
+				->where('status',$status)
+				->get();
+			if(empty($orders)){
+				order::create([
+					'user_id' => auth()->user()->id,
+				]);
+			}
+			$newitems = [];
+			foreach ($orders[0]->items as $items) {
+				$items = json_decode($items, true);
+				$items['product']['name'] = $items['product']['name'][$lang];
+				$items['product']['short_description'] = $items['product']['short_description'][$lang];
+				$items['product']['description'] = $items['product']['description'][$lang];
+				$items['product']['details'] = $items['product']['details'][$lang];
+				$newitems[] = $items;
+			}
+			$orders = json_decode($orders, true);
+			array_replace($orders[0]['items'] = $newitems);
+			
+			return $this->ApiResponse(200, 'success', null, array('cart' => $orders));
+			
+		}
 		
 	}
