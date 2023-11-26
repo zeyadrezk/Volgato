@@ -65,9 +65,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 		Route::delete('/deleteCartItem','deleteCartItem')->name('deleteCartItem')->middleware('auth:sanctum');
 		Route::put('/ChangeQuantityItem','ChangeQuantityItem')->name('ChangeQuantityItem')->middleware('auth:sanctum');
 		
-		Route::get('/FavouriteProduct/{lang}','FavouriteProduct')->name('FavouriteProduct')->middleware('auth:sanctum');
-		Route::get('/orders/{lang}/{status}','orders')->name('orders')->middleware('auth:sanctum');
-		
 	});
 	
 	
@@ -75,13 +72,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 	
 	Route::group([
 		'controller' => UserController::class,
+		'middleware'=>'guest',
 		'prefix' => 'user',
 	], function () {
-	Route::match(['get','post'],'/login','login')->name('login')->middleware('guest');
-	Route::post('/register','register')->name('register')->middleware('guest');
-	Route::get('/editProfile','editProfile')->name('editProfile')->middleware('auth:sanctum');
-	Route::put('/updateProfile','updateProfile')->name('updateProfile')->middleware('auth:sanctum');
-	
+	Route::match(['get','post'],'/login','login')->name('login');
+	Route::post('/register','register')->name('register');
 	});
 	
 	

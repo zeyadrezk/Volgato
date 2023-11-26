@@ -49,10 +49,5 @@ class Product extends Model
 		return $this->belongsTo(Category::class);
 	}
 	
-	
-	public function favourites()
-	{
-		return $this->hasMany(FavouriteProduct::class);
-	}
 
 }
